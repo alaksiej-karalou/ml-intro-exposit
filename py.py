@@ -1,8 +1,9 @@
 import pandas as pd
+from pandas_profiling import ProfileReport
 
-train_data = pd.read_csv('data/train.csv', parse_dates = ['Time UTC'],
-                         date_parser = dateparse)
-print(train_data.head())
+train_data = pd.read_csv('data/train.csv')
+train_data.reset_index(drop = True, inplace = True)
+print(train_data)
 
-codes_data = pd.read_csv('data/codes.csv', sep = ';')
-print(codes_data.head())
+profile = ProfileReport(train_data, title = "Pandas Profiling Report")
+profile.to_file("data/train_profile.html")
